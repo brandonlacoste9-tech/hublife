@@ -5,7 +5,7 @@
 
 | App | Job | URL |
 |-----|-----|-----|
-| HubLife | Launcher / “what do I need?” | this site |
+| HubLife | Launcher / “what do I need?” | https://hublife-192.netlify.app |
 | Wacké | Live | https://wacke.live |
 | Zyeuté | Create / short video | https://zyeute.com |
 | Grok Assistant | Decide / brain | https://grok-assistant.com |
