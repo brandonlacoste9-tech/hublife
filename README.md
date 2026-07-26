@@ -2,7 +2,8 @@
 
 **North Network** home screen — one place to open your apps.
 
-**Live:** https://hublife-192.netlify.app  
+**Live:** https://hublife.ca  
+**Netlify fallback:** https://hublife-192.netlify.app  
 **Admin:** https://app.netlify.com/projects/hublife-192
 
 *Live · Create · Decide · Plan · Play*
