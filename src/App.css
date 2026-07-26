@@ -21,20 +21,25 @@
   align-items: center;
 }
 
+/* Snapchat yellow glow on the HubLife mark */
 .logo {
+  --snap-yellow: #fffc00;
+  --snap-glow: rgba(255, 252, 0, 0.55);
   width: 44px;
   height: 44px;
   border-radius: 14px;
   display: grid;
   place-items: center;
-  color: var(--accent);
-  border: 1px solid rgba(196, 120, 58, 0.28);
+  color: #1a1508;
+  border: 1px solid rgba(255, 252, 0, 0.55);
   background:
-    radial-gradient(120% 100% at 30% 20%, rgba(232, 190, 130, 0.12), transparent 55%),
-    var(--accent-soft);
+    radial-gradient(120% 100% at 30% 18%, rgba(255, 255, 220, 0.55), transparent 55%),
+    linear-gradient(160deg, #fff566 0%, #fffc00 45%, #e6d000 100%);
   box-shadow:
-    0 1px 0 rgba(255, 220, 180, 0.06) inset,
-    0 4px 12px rgba(0, 0, 0, 0.2);
+    0 1px 0 rgba(255, 255, 255, 0.45) inset,
+    0 0 14px var(--snap-glow),
+    0 0 28px rgba(255, 252, 0, 0.28),
+    0 4px 14px rgba(0, 0, 0, 0.28);
 }
 
 .top h1 {
@@ -42,6 +47,9 @@
   font-weight: 700;
   letter-spacing: -0.03em;
   margin: 0;
+  text-shadow:
+    0 0 18px rgba(255, 252, 0, 0.28),
+    0 0 36px rgba(255, 252, 0, 0.12);
 }
 
 .tag {
