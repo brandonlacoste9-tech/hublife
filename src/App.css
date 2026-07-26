@@ -274,15 +274,16 @@
   gap: 0.85rem;
 }
 
-/* Premium leather card + gold/yellow hand-stitching */
+/* Premium leather card + heavier gold/yellow hand-stitching */
 .tile {
-  --stitch: #e2c36a;
-  --stitch-dim: rgba(226, 195, 106, 0.38);
-  --leather-edge: #2a1c12;
+  --stitch: #ecc86a;
+  --stitch-bright: #f5df9a;
+  --stitch-dim: rgba(236, 200, 106, 0.55);
+  --leather-edge: #24180f;
   position: relative;
   text-align: left;
   border-radius: 18px;
-  border: 2px solid var(--leather-edge);
+  border: 2.5px solid var(--leather-edge);
   background:
     linear-gradient(
       155deg,
@@ -290,7 +291,7 @@
       transparent 48%
     ),
     linear-gradient(180deg, #241912 0%, var(--bg-elevated) 45%, #16110d 100%);
-  padding: 1.15rem 1rem 1rem;
+  padding: 1.2rem 1.05rem 1.05rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -298,38 +299,42 @@
   min-height: 138px;
   isolation: isolate;
   box-shadow:
-    0 1px 0 rgba(255, 230, 180, 0.06) inset,
+    0 1px 0 rgba(255, 230, 180, 0.07) inset,
     0 10px 22px rgba(0, 0, 0, 0.28),
-    0 0 0 1px rgba(196, 120, 58, 0.12);
+    0 0 0 1px rgba(196, 120, 58, 0.14);
   transition:
     border-color 0.15s ease,
     transform 0.15s ease,
     box-shadow 0.15s ease;
 }
 
-/* Outer gold stitch line (dashed = thread holes) */
+/* Outer gold stitch — thicker dashed thread */
 .tile::before {
   content: "";
   position: absolute;
-  inset: 5px;
+  inset: 4px;
   border-radius: 13px;
-  border: 1.5px dashed var(--stitch);
-  opacity: 0.88;
+  border: 2.5px dashed var(--stitch);
+  opacity: 0.95;
   pointer-events: none;
   z-index: 1;
-  box-shadow: 0 0 0 0.5px rgba(80, 50, 10, 0.35);
+  /* slight “thread depth” */
+  box-shadow:
+    0 0.5px 0 rgba(80, 45, 8, 0.55),
+    0 0 0 1px rgba(40, 24, 8, 0.25);
 }
 
-/* Inner parallel stitch — premium double-needle look */
+/* Inner parallel stitch — heavier double-needle */
 .tile::after {
   content: "";
   position: absolute;
-  inset: 8px;
-  border-radius: 11px;
-  border: 1px dashed var(--stitch-dim);
-  opacity: 0.75;
+  inset: 8.5px;
+  border-radius: 10px;
+  border: 1.75px dashed var(--stitch-dim);
+  opacity: 0.9;
   pointer-events: none;
   z-index: 1;
+  box-shadow: 0 0.5px 0 rgba(60, 35, 5, 0.35);
 }
 
 .tile > * {
@@ -348,7 +353,13 @@
 
 .tile.live:hover::before {
   opacity: 1;
-  border-color: #f0d78c;
+  border-color: var(--stitch-bright);
+  border-width: 2.75px;
+}
+
+.tile.live:hover::after {
+  opacity: 1;
+  border-color: rgba(245, 223, 154, 0.65);
 }
 
 .tile.soon {
@@ -369,7 +380,13 @@
 }
 
 .tile.recent::before {
-  border-color: #f0d78c;
+  border-color: var(--stitch-bright);
+  border-width: 2.75px;
+  opacity: 1;
+}
+
+.tile.recent::after {
+  border-color: rgba(245, 223, 154, 0.7);
   opacity: 1;
 }
 
