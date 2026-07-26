@@ -157,8 +157,9 @@ export default function App({ onSwitchVersion }: Props) {
               type="button"
               className="version-switch"
               onClick={onSwitchVersion}
+              title="Optional blue glass preview — not the main hub"
             >
-              Alt skin →
+              Preview alt skin
             </button>
           ) : null}
         </div>
