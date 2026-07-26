@@ -9,8 +9,8 @@
 | Wacké | https://wacke.live |
 | Zyeuté | https://zyeute.com |
 | Grok Assistant | https://grok-assistant.com |
-| FloGuru | Coming soon |
-| Hell Yeah Games | Coming soon |
+| FloGuru | https://floguru.com |
+| Hell Yeah Games | https://www.hellyeah-games.com |
 
 ## Dev
 

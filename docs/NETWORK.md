@@ -9,8 +9,8 @@
 | Wacké | Live | https://wacke.live |
 | Zyeuté | Create / short video | https://zyeute.com |
 | Grok Assistant | Decide / brain | https://grok-assistant.com |
-| FloGuru | Plan | TBD |
-| Hell Yeah Games | Play | TBD |
+| FloGuru | Plan | https://floguru.com |
+| Hell Yeah Games | Play | https://www.hellyeah-games.com |
 
 ## Deep links
 ```

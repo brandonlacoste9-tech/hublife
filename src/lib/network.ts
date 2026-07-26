@@ -63,7 +63,7 @@ export const APPS: NetworkApp[] = [
     id: "floguru",
     name: "FloGuru",
     job: "Daily lifestyle & deeper planning",
-    url: null, // set when production URL confirmed
+    url: "https://floguru.com",
     emoji: "🧭",
     intentDefault: "plan",
     accent: "#8b6914",
@@ -72,7 +72,7 @@ export const APPS: NetworkApp[] = [
     id: "hellyeah",
     name: "Hell Yeah Games",
     job: "Quick play · 5-minute reset",
-    url: null, // set when production URL confirmed
+    url: "https://www.hellyeah-games.com",
     emoji: "🎮",
     intentDefault: "play",
     accent: "#e11d48",
