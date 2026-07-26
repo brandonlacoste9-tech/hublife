@@ -1,0 +1,236 @@
+.shell {
+  min-height: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 1.25rem 1.15rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand-block {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  border: 1px solid rgba(196, 120, 58, 0.35);
+  color: var(--accent);
+  font-size: 1.25rem;
+}
+
+.top h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.tag {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  font-family: var(--mono);
+}
+
+.ready-pill {
+  margin: 0;
+  font-size: 0.72rem;
+  font-family: var(--mono);
+  color: var(--accent);
+  border: 1px solid rgba(196, 120, 58, 0.3);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  white-space: nowrap;
+}
+
+.hero h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  margin: 0 0 0.65rem;
+}
+
+.lede {
+  color: var(--text-muted);
+  margin: 0 0 1.25rem;
+  font-size: 0.98rem;
+}
+
+.cta-brief {
+  width: 100%;
+  border: none;
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  background: linear-gradient(135deg, #c4783a, #a85f28);
+  color: #1a1008;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 12px 32px rgba(196, 120, 58, 0.25);
+}
+
+.cta-brief span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.cta-brief:hover {
+  filter: brightness(1.05);
+}
+
+.intent-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem;
+  padding: 0.45rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elevated);
+}
+
+.intent-form input {
+  border: none;
+  background: transparent;
+  color: var(--text);
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  min-width: 0;
+}
+
+.intent-form input::placeholder {
+  color: var(--text-faint);
+}
+
+.intent-form input:focus {
+  outline: none;
+}
+
+.go-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 0 1.1rem;
+  background: var(--accent);
+  color: #1a1008;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.tile {
+  text-align: left;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  padding: 1rem 0.9rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-height: 132px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.tile.live:hover {
+  border-color: var(--tile-accent, var(--accent));
+  transform: translateY(-2px);
+}
+
+.tile.soon {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.tile-emoji {
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+}
+
+.tile-name {
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: -0.02em;
+}
+
+.tile-job {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  flex: 1;
+}
+
+.tile-status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tile-accent, var(--accent));
+  font-family: var(--mono);
+  margin-top: 0.35rem;
+}
+
+.foot {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.foot p {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.fine {
+  font-size: 0.72rem !important;
+  color: var(--text-faint) !important;
+  font-family: var(--mono);
+}
+
+.fine code {
+  font-size: 0.7rem;
+  color: var(--accent);
+}
+
+@media (min-width: 560px) {
+  .shell {
+    max-width: 640px;
+    padding-top: 2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
