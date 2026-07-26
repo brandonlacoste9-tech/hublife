@@ -30,14 +30,6 @@ function formatClock(d: Date): string {
   });
 }
 
-function formatDate(d: Date): string {
-  return d.toLocaleDateString(undefined, {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
-}
-
 type Shortcut = {
   label: string;
   appId: NetworkAppId;
@@ -132,149 +124,154 @@ export default function App({ onSwitchVersion }: Props) {
 
   return (
     <div className="shell">
-      <header className="top">
-        <div className="brand-block">
-          <span className="logo" aria-hidden>
-            <AppIcon id="hublife" size={20} />
-          </span>
-          <div>
-            <h1>HubLife</h1>
-            <p className="tag">
-              {NETWORK_BRAND} · {NETWORK_TAGLINE}
+      <div className="suede-stage">
+        {/* Outer leather board — matches promo still */}
+        <div className="leather-board">
+          <header className="leather-header">
+            <div className="brand-row">
+              <span className="logo" aria-hidden>
+                <AppIcon id="hublife" size={22} />
+              </span>
+              <h1>HubLife</h1>
+            </div>
+            <div className="header-meta">
+              <p className="tag">
+                {NETWORK_BRAND} · {NETWORK_TAGLINE}
+              </p>
+              <p className="clock" aria-live="polite">
+                <span className="clock-time">{formatClock(now)}</span>
+              </p>
+            </div>
+          </header>
+
+          <section className="hero">
+            <h2>
+              {timeGreeting()}.
+              <br />
+              What do you need?
+            </h2>
+            <p className="lede">
+              One home for your constellation — live, create, decide, plan,
+              play, snap.
             </p>
-          </div>
-        </div>
-        <div className="top-meta">
-          <p className="clock" aria-live="polite">
-            <span className="clock-time">{formatClock(now)}</span>
-            <span className="clock-date">{formatDate(now)}</span>
-          </p>
-          <p className="ready-pill">
-            {readyCount}/{APPS.length} live
-          </p>
-          {onSwitchVersion ? (
-            <button
-              type="button"
-              className="version-switch"
-              onClick={onSwitchVersion}
-              title="Optional blue glass preview — not the main hub"
-            >
-              Preview alt skin
+
+            <button type="button" className="cta-brief" onClick={openBriefing}>
+              Morning briefing
+              <span>Opens Grok Assistant with intent=brief</span>
             </button>
-          ) : null}
-        </div>
-      </header>
 
-      <main>
-        <section className="hero">
-          <h2>
-            {timeGreeting()}.
-            <br />
-            What do you need?
-          </h2>
-          <p className="lede">
-            One home for your constellation — live, create, decide, plan, play,
-            snap.
-          </p>
-
-          <button type="button" className="cta-brief" onClick={openBriefing}>
-            Morning briefing
-            <span>Opens Grok Assistant with intent=brief</span>
-          </button>
-
-          {lastApp?.url ? (
-            <button
-              type="button"
-              className="cta-resume"
-              onClick={() => launch(lastApp)}
-            >
-              <AppIcon id={lastApp.id} size={15} />
-              <span>Resume {lastApp.name}</span>
-            </button>
-          ) : null}
-
-          <form className="intent-form" onSubmit={onSubmit}>
-            <span className="intent-search-ico" aria-hidden>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.7"
+            {lastApp?.url ? (
+              <button
+                type="button"
+                className="cta-resume"
+                onClick={() => launch(lastApp)}
               >
-                <circle cx="11" cy="11" r="6.5" />
-                <path d="m16 16 4 4" strokeLinecap="round" />
-              </svg>
-            </span>
-            <input
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value);
-                setHint(null);
-              }}
-              placeholder="I’m bored · what’s live · snap · briefing…"
-              aria-label="What do you need"
-              autoComplete="off"
-            />
-            <button type="submit" className="go-btn">
-              Go
-            </button>
-          </form>
-          {hint ? <p className="hint">{hint}</p> : null}
+                <AppIcon id={lastApp.id} size={15} />
+                <span>Resume {lastApp.name}</span>
+              </button>
+            ) : null}
 
-          <div className="shortcuts" aria-label="Quick jumps">
-            {SHORTCUTS.map((s) => {
-              const app = getApp(s.appId);
-              const live = Boolean(app?.url);
+            <form className="intent-form" onSubmit={onSubmit}>
+              <span className="intent-search-ico" aria-hidden>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                >
+                  <circle cx="11" cy="11" r="6.5" />
+                  <path d="m16 16 4 4" strokeLinecap="round" />
+                </svg>
+              </span>
+              <input
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setHint(null);
+                }}
+                placeholder="I’m bored · what’s live · snap · briefing…"
+                aria-label="What do you need"
+                autoComplete="off"
+              />
+              <button type="submit" className="go-btn">
+                Go
+              </button>
+            </form>
+            {hint ? <p className="hint">{hint}</p> : null}
+
+            <div className="shortcuts" aria-label="Quick jumps">
+              {SHORTCUTS.map((s) => {
+                const app = getApp(s.appId);
+                const live = Boolean(app?.url);
+                return (
+                  <button
+                    key={s.label}
+                    type="button"
+                    className={`chip ${live ? "" : "chip-soon"}`}
+                    disabled={!live}
+                    onClick={() => app && launch(app, s.intent)}
+                  >
+                    <AppIcon id={s.appId} size={14} />
+                    <span>{s.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* 6 stitched suede colour cards — promo layout */}
+          <section className="grid" aria-label="North Network apps">
+            {APPS.map((app) => {
+              const live = Boolean(app.url);
               return (
                 <button
-                  key={s.label}
+                  key={app.id}
                   type="button"
-                  className={`chip ${live ? "" : "chip-soon"}`}
+                  className={`tile ${live ? "live" : "soon"} ${
+                    lastAppId === app.id ? "recent" : ""
+                  }`}
+                  style={{ ["--tile-accent" as string]: app.accent }}
+                  onClick={() => launch(app)}
                   disabled={!live}
-                  onClick={() => app && launch(app, s.intent)}
                 >
-                  <AppIcon id={s.appId} size={14} />
-                  <span>{s.label}</span>
+                  <span className="tile-icon" aria-hidden>
+                    <AppIcon id={app.id} size={28} />
+                  </span>
+                  <span className="tile-name">{app.name}</span>
+                  <span className="tile-job">{app.job}</span>
+                  <span className="tile-status">
+                    {live ? "Open →" : "Soon"}
+                  </span>
                 </button>
               );
             })}
-          </div>
-        </section>
+          </section>
 
-        <section className="grid" aria-label="North Network apps">
-          {APPS.map((app) => {
-            const live = Boolean(app.url);
-            return (
+          <div className="board-foot">
+            <span>
+              {readyCount}/{APPS.length} live
+            </span>
+            {onSwitchVersion ? (
               <button
-                key={app.id}
                 type="button"
-                className={`tile ${live ? "live" : "soon"} ${
-                  lastAppId === app.id ? "recent" : ""
-                }`}
-                style={{ ["--tile-accent" as string]: app.accent }}
-                onClick={() => launch(app)}
-                disabled={!live}
+                className="version-switch"
+                onClick={onSwitchVersion}
               >
-                <span className="tile-icon" aria-hidden>
-                  <AppIcon id={app.id} size={20} />
-                </span>
-                <span className="tile-name">{app.name}</span>
-                <span className="tile-job">{app.job}</span>
-                <span className="tile-status">{live ? "Open →" : "Soon"}</span>
+                Preview alt skin
               </button>
-            );
-          })}
-        </section>
+            ) : null}
+          </div>
+        </div>
+      </div>
 
-        {installHint ? (
-          <p className="install-tip">
-            Tip: on your phone, use <strong>Add to Home Screen</strong> so
-            HubLife is one tap away.
-          </p>
-        ) : null}
-      </main>
+      {installHint ? (
+        <p className="install-tip">
+          Tip: on your phone, use <strong>Add to Home Screen</strong> so HubLife
+          is one tap away.
+        </p>
+      ) : null}
 
       <footer className="foot">
         <p>
