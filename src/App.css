@@ -307,12 +307,12 @@
   background:
     linear-gradient(
       155deg,
-      color-mix(in srgb, var(--tile-accent, var(--accent)) 12%, transparent),
+      color-mix(in srgb, var(--tile-accent, var(--accent)) 14%, transparent),
       transparent 52%
     ),
-    radial-gradient(120% 90% at 25% 10%, rgba(232, 200, 150, 0.1), transparent 55%),
-    radial-gradient(90% 80% at 80% 90%, rgba(30, 18, 10, 0.35), transparent 50%),
-    linear-gradient(185deg, #2a2118 0%, #1c1611 48%, #16110d 100%);
+    radial-gradient(120% 90% at 25% 10%, rgba(232, 200, 150, 0.14), transparent 55%),
+    radial-gradient(90% 80% at 80% 90%, rgba(30, 18, 10, 0.4), transparent 50%),
+    linear-gradient(185deg, #2c2219 0%, #1c1611 48%, #16110d 100%);
   padding: 1.2rem 1.05rem 1.05rem;
   cursor: pointer;
   display: flex;
@@ -320,11 +320,12 @@
   gap: 0.25rem;
   min-height: 138px;
   isolation: isolate;
-  /* Diffuse suede falloff instead of hard plastic edge */
+  /* Diffuse suede falloff + subtle nap grain on the card itself */
+  background-blend-mode: normal, soft-light, normal, normal;
   box-shadow:
-    0 1px 0 rgba(255, 220, 170, 0.06) inset,
-    0 -8px 18px rgba(0, 0, 0, 0.18) inset,
-    0 12px 26px rgba(12, 8, 5, 0.4),
+    0 1px 0 rgba(255, 220, 170, 0.08) inset,
+    0 -8px 18px rgba(0, 0, 0, 0.2) inset,
+    0 12px 26px rgba(12, 8, 5, 0.42),
     0 0 0 1px rgba(196, 120, 58, 0.1);
   transition:
     border-color 0.15s ease,
