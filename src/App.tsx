@@ -11,6 +11,7 @@ import {
   type NetworkAppId,
   type NetworkIntent,
 } from "./lib/network";
+import { AppIcon } from "./lib/appIcons";
 import "./App.css";
 
 function timeGreeting(): string {
@@ -41,19 +42,22 @@ type Shortcut = {
   label: string;
   appId: NetworkAppId;
   intent: NetworkIntent;
-  emoji: string;
 };
 
 const SHORTCUTS: Shortcut[] = [
-  { label: "Brief me", appId: "grok", intent: "brief", emoji: "✦" },
-  { label: "What's live", appId: "wacke", intent: "watch", emoji: "📺" },
-  { label: "Snap crew", appId: "chatsnap", intent: "snap", emoji: "👻" },
-  { label: "I'm bored", appId: "hellyeah", intent: "play", emoji: "🎮" },
-  { label: "Plan day", appId: "floguru", intent: "plan", emoji: "🧭" },
-  { label: "Shorts", appId: "zyeute", intent: "create", emoji: "🎬" },
+  { label: "Brief me", appId: "grok", intent: "brief" },
+  { label: "What's live", appId: "wacke", intent: "watch" },
+  { label: "Snap crew", appId: "chatsnap", intent: "snap" },
+  { label: "I'm bored", appId: "hellyeah", intent: "play" },
+  { label: "Plan day", appId: "floguru", intent: "plan" },
+  { label: "Shorts", appId: "zyeute", intent: "create" },
 ];
 
-export default function App() {
+type Props = {
+  onSwitchVersion?: () => void;
+};
+
+export default function App({ onSwitchVersion }: Props) {
   const [query, setQuery] = useState("");
   const [hint, setHint] = useState<string | null>(null);
   const [now, setNow] = useState(() => new Date());
@@ -72,7 +76,6 @@ export default function App() {
     } catch {
       /* ignore */
     }
-    // PWA install tip when not standalone
     try {
       const standalone =
         window.matchMedia("(display-mode: standalone)").matches ||
@@ -132,7 +135,7 @@ export default function App() {
       <header className="top">
         <div className="brand-block">
           <span className="logo" aria-hidden>
-            ⌂
+            <AppIcon id="hublife" size={20} />
           </span>
           <div>
             <h1>HubLife</h1>
@@ -149,6 +152,15 @@ export default function App() {
           <p className="ready-pill">
             {readyCount}/{APPS.length} live
           </p>
+          {onSwitchVersion ? (
+            <button
+              type="button"
+              className="version-switch"
+              onClick={onSwitchVersion}
+            >
+              Alt skin →
+            </button>
+          ) : null}
         </div>
       </header>
 
@@ -165,7 +177,7 @@ export default function App() {
           </p>
 
           <button type="button" className="cta-brief" onClick={openBriefing}>
-            ✦ Morning briefing
+            Morning briefing
             <span>Opens Grok Assistant with intent=brief</span>
           </button>
 
@@ -175,11 +187,25 @@ export default function App() {
               className="cta-resume"
               onClick={() => launch(lastApp)}
             >
-              Resume {lastApp.emoji} {lastApp.name}
+              <AppIcon id={lastApp.id} size={15} />
+              <span>Resume {lastApp.name}</span>
             </button>
           ) : null}
 
           <form className="intent-form" onSubmit={onSubmit}>
+            <span className="intent-search-ico" aria-hidden>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+              >
+                <circle cx="11" cy="11" r="6.5" />
+                <path d="m16 16 4 4" strokeLinecap="round" />
+              </svg>
+            </span>
             <input
               value={query}
               onChange={(e) => {
@@ -208,7 +234,8 @@ export default function App() {
                   disabled={!live}
                   onClick={() => app && launch(app, s.intent)}
                 >
-                  <span aria-hidden>{s.emoji}</span> {s.label}
+                  <AppIcon id={s.appId} size={14} />
+                  <span>{s.label}</span>
                 </button>
               );
             })}
@@ -229,8 +256,8 @@ export default function App() {
                 onClick={() => launch(app)}
                 disabled={!live}
               >
-                <span className="tile-emoji" aria-hidden>
-                  {app.emoji}
+                <span className="tile-icon" aria-hidden>
+                  <AppIcon id={app.id} size={20} />
                 </span>
                 <span className="tile-name">{app.name}</span>
                 <span className="tile-job">{app.job}</span>
