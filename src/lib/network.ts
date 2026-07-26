@@ -1,7 +1,7 @@
 /** North Network — single source of truth for HubLife deep links */
 
 export const NETWORK_BRAND = "North Network";
-export const NETWORK_TAGLINE = "Live · Create · Decide · Plan · Play";
+export const NETWORK_TAGLINE = "Live · Create · Decide · Plan · Play · Snap";
 
 export type NetworkAppId =
   | "hublife"
@@ -9,7 +9,8 @@ export type NetworkAppId =
   | "wacke"
   | "zyeute"
   | "floguru"
-  | "hellyeah";
+  | "hellyeah"
+  | "chatsnap";
 
 export type NetworkIntent =
   | "home"
@@ -18,7 +19,8 @@ export type NetworkIntent =
   | "plan"
   | "play"
   | "ask"
-  | "brief";
+  | "brief"
+  | "snap";
 
 export type NetworkApp = {
   id: NetworkAppId;
@@ -76,6 +78,15 @@ export const APPS: NetworkApp[] = [
     emoji: "🎮",
     intentDefault: "play",
     accent: "#e11d48",
+  },
+  {
+    id: "chatsnap",
+    name: "ChatSnap",
+    job: "Snaps, stories & chat with your crew",
+    url: "https://chatsnap-app.netlify.app",
+    emoji: "👻",
+    intentDefault: "snap",
+    accent: "#22d3ee",
   },
 ];
 
@@ -148,6 +159,9 @@ export function routeIntent(text: string): {
   }
   if (/\b(floguru|lifestyle|routine|habit)\b/.test(t)) {
     return { appId: "floguru", intent: "plan", label: "FloGuru" };
+  }
+  if (/\b(snap|chatsnap|ghost|story|stories|friends only)\b/.test(t)) {
+    return { appId: "chatsnap", intent: "snap", label: "ChatSnap" };
   }
   return null;
 }

@@ -14,6 +14,7 @@
 | Grok Assistant | https://grok-assistant.com |
 | FloGuru | https://floguru.com |
 | Hell Yeah Games | https://www.hellyeah-games.com |
+| ChatSnap | https://chatsnap-app.netlify.app |
 
 ## Dev
 

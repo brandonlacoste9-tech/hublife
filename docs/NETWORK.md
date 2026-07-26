@@ -11,12 +11,13 @@
 | Grok Assistant | Decide / brain | https://grok-assistant.com |
 | FloGuru | Plan | https://floguru.com |
 | Hell Yeah Games | Play | https://www.hellyeah-games.com |
+| ChatSnap | Snap / chat | https://chatsnap-app.netlify.app |
 
 ## Deep links
 ```
 ?from=network
 &via=hublife
-&intent=watch|create|plan|play|ask|brief
+&intent=watch|create|plan|play|ask|brief|snap
 &utm_source=north_network
 &utm_medium=cross_app
 &utm_campaign=hublife_v1

@@ -143,7 +143,7 @@ export default function App() {
         </p>
         <p className="fine">
           Deep links use <code>from=network</code> · Hub for Grok, Wacké,
-          Zyeuté, FloGuru &amp; Hell Yeah Games
+          Zyeuté, FloGuru, Hell Yeah Games &amp; ChatSnap
         </p>
       </footer>
     </div>
