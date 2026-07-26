@@ -27,9 +27,14 @@
   border-radius: 14px;
   display: grid;
   place-items: center;
-  background: var(--accent-soft);
-  border: 1px solid rgba(196, 120, 58, 0.35);
   color: var(--accent);
+  border: 1px solid rgba(196, 120, 58, 0.28);
+  background:
+    radial-gradient(120% 100% at 30% 20%, rgba(232, 190, 130, 0.12), transparent 55%),
+    var(--accent-soft);
+  box-shadow:
+    0 1px 0 rgba(255, 220, 180, 0.06) inset,
+    0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .top h1 {
@@ -109,7 +114,9 @@
   margin: 0.65rem 0 0;
   border-radius: 14px;
   border: 1px solid var(--border-strong);
-  background: var(--bg-elevated);
+  background:
+    radial-gradient(120% 90% at 20% 0%, var(--suede-highlight), transparent 50%),
+    var(--bg-elevated);
   color: var(--text);
   padding: 0.75rem 1rem;
   font-weight: 600;
@@ -119,6 +126,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
+  box-shadow: 0 6px 16px var(--suede-shadow);
 }
 
 .cta-resume svg {
@@ -139,7 +147,9 @@
 
 .chip {
   border: 1px solid var(--border);
-  background: var(--bg-soft);
+  background:
+    radial-gradient(100% 120% at 30% 0%, var(--suede-highlight), transparent 55%),
+    var(--bg-soft);
   color: var(--text-muted);
   border-radius: 999px;
   padding: 0.45rem 0.75rem;
@@ -150,6 +160,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .chip svg {
@@ -194,7 +205,10 @@
   border: none;
   border-radius: 16px;
   padding: 1rem 1.1rem;
-  background: linear-gradient(135deg, #c4783a, #a85f28);
+  /* Matte cognac suede CTA — soft nap, low specular */
+  background:
+    radial-gradient(140% 100% at 15% 0%, rgba(255, 220, 170, 0.18), transparent 50%),
+    linear-gradient(160deg, #c98a4e 0%, #b56d32 42%, #9a5824 100%);
   color: #1a1008;
   font-weight: 700;
   font-size: 1.05rem;
@@ -204,7 +218,9 @@
   align-items: flex-start;
   gap: 0.2rem;
   margin-bottom: 1rem;
-  box-shadow: 0 12px 32px rgba(196, 120, 58, 0.25);
+  box-shadow:
+    0 1px 0 rgba(255, 230, 190, 0.2) inset,
+    0 10px 28px rgba(90, 50, 20, 0.35);
 }
 
 .cta-brief span {
@@ -214,7 +230,7 @@
 }
 
 .cta-brief:hover {
-  filter: brightness(1.05);
+  filter: brightness(1.04) saturate(1.02);
 }
 
 .intent-form {
@@ -225,7 +241,10 @@
   padding: 0.45rem;
   border-radius: 16px;
   border: 1px solid var(--border-strong);
-  background: var(--bg-elevated);
+  background:
+    radial-gradient(100% 120% at 50% 0%, var(--suede-highlight), transparent 55%),
+    var(--bg-elevated);
+  box-shadow: 0 8px 20px var(--suede-shadow);
 }
 
 .intent-search-ico {
@@ -274,23 +293,26 @@
   gap: 0.85rem;
 }
 
-/* Premium leather card + heavier gold/yellow hand-stitching */
+/* Cognac suede panels + heavy gold hand-stitching */
 .tile {
   --stitch: #ecc86a;
   --stitch-bright: #f5df9a;
   --stitch-dim: rgba(236, 200, 106, 0.55);
-  --leather-edge: #24180f;
+  --suede-edge: #2a1c12;
   position: relative;
   text-align: left;
   border-radius: 18px;
-  border: 2.5px solid var(--leather-edge);
+  border: 2.5px solid var(--suede-edge);
+  /* Soft nap: matte base + brushed light, no hard gloss */
   background:
     linear-gradient(
       155deg,
-      color-mix(in srgb, var(--tile-accent, var(--accent)) 10%, transparent),
-      transparent 48%
+      color-mix(in srgb, var(--tile-accent, var(--accent)) 12%, transparent),
+      transparent 52%
     ),
-    linear-gradient(180deg, #241912 0%, var(--bg-elevated) 45%, #16110d 100%);
+    radial-gradient(120% 90% at 25% 10%, rgba(232, 200, 150, 0.1), transparent 55%),
+    radial-gradient(90% 80% at 80% 90%, rgba(30, 18, 10, 0.35), transparent 50%),
+    linear-gradient(185deg, #2a2118 0%, #1c1611 48%, #16110d 100%);
   padding: 1.2rem 1.05rem 1.05rem;
   cursor: pointer;
   display: flex;
@@ -298,14 +320,17 @@
   gap: 0.25rem;
   min-height: 138px;
   isolation: isolate;
+  /* Diffuse suede falloff instead of hard plastic edge */
   box-shadow:
-    0 1px 0 rgba(255, 230, 180, 0.07) inset,
-    0 10px 22px rgba(0, 0, 0, 0.28),
-    0 0 0 1px rgba(196, 120, 58, 0.14);
+    0 1px 0 rgba(255, 220, 170, 0.06) inset,
+    0 -8px 18px rgba(0, 0, 0, 0.18) inset,
+    0 12px 26px rgba(12, 8, 5, 0.4),
+    0 0 0 1px rgba(196, 120, 58, 0.1);
   transition:
     border-color 0.15s ease,
     transform 0.15s ease,
-    box-shadow 0.15s ease;
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
 }
 
 /* Outer gold stitch — thicker dashed thread */
@@ -345,10 +370,12 @@
 .tile.live:hover {
   transform: translateY(-2px);
   border-color: #3d2a18;
+  filter: brightness(1.04);
   box-shadow:
     0 1px 0 rgba(255, 230, 180, 0.1) inset,
-    0 14px 28px rgba(0, 0, 0, 0.34),
-    0 0 0 1px color-mix(in srgb, var(--tile-accent, var(--accent)) 35%, transparent);
+    0 -6px 16px rgba(0, 0, 0, 0.15) inset,
+    0 16px 32px rgba(12, 8, 5, 0.45),
+    0 0 0 1px color-mix(in srgb, var(--tile-accent, var(--accent)) 30%, transparent);
 }
 
 .tile.live:hover::before {
@@ -397,9 +424,12 @@
   place-items: center;
   border-radius: 11px;
   margin-bottom: 0.35rem;
-  color: color-mix(in srgb, var(--tile-accent, var(--accent)) 75%, #f7f0e8 25%);
-  background: color-mix(in srgb, var(--tile-accent, var(--accent)) 14%, transparent);
-  border: 1px solid color-mix(in srgb, var(--tile-accent, var(--accent)) 32%, transparent);
+  color: color-mix(in srgb, var(--tile-accent, var(--accent)) 70%, #f5ebe0 30%);
+  background:
+    radial-gradient(120% 100% at 30% 20%, rgba(255, 230, 190, 0.08), transparent 60%),
+    color-mix(in srgb, var(--tile-accent, var(--accent)) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tile-accent, var(--accent)) 28%, transparent);
+  box-shadow: 0 1px 0 rgba(255, 220, 180, 0.05) inset;
 }
 
 .tile-name {
