@@ -41,7 +41,7 @@ export const APPS: NetworkApp[] = [
     url: "https://wacke.live",
     emoji: "📺",
     intentDefault: "watch",
-    accent: "#6b3d9a", // deep purple suede (promo)
+    accent: "#a855f7",
   },
   {
     id: "zyeute",
@@ -50,7 +50,7 @@ export const APPS: NetworkApp[] = [
     url: "https://zyeute.com",
     emoji: "🎬",
     intentDefault: "create",
-    accent: "#c9a227", // mustard gold (promo)
+    accent: "#c9a227",
   },
   {
     id: "grok",
@@ -59,7 +59,7 @@ export const APPS: NetworkApp[] = [
     url: "https://grok-assistant.com",
     emoji: "✦",
     intentDefault: "ask",
-    accent: "#8a6744", // cognac leather (promo)
+    accent: "#c4783a",
   },
   {
     id: "floguru",
@@ -68,16 +68,16 @@ export const APPS: NetworkApp[] = [
     url: "https://floguru.com",
     emoji: "🧭",
     intentDefault: "plan",
-    accent: "#6d7a3e", // olive suede (promo)
+    accent: "#8b6914",
   },
   {
     id: "hellyeah",
-    name: "Hell Yeah",
+    name: "Hell Yeah Games",
     job: "Quick play · 5-minute reset",
     url: "https://www.hellyeah-games.com",
     emoji: "🎮",
     intentDefault: "play",
-    accent: "#c9a0a8", // dusty rose (promo)
+    accent: "#e11d48",
   },
   {
     id: "chatsnap",
@@ -86,7 +86,7 @@ export const APPS: NetworkApp[] = [
     url: "https://chatsnap-app.netlify.app",
     emoji: "👻",
     intentDefault: "snap",
-    accent: "#6ec6e0", // sky cyan (promo)
+    accent: "#22d3ee",
   },
 ];
 

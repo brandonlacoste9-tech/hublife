@@ -1,278 +1,281 @@
-/* HubLife — match promo still: leather board + gold stitch + solid colour cards */
-
 .shell {
-  min-height: 100dvh;
+  min-height: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 1.25rem 1.15rem 2.5rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 1rem 2rem;
+  gap: 1.5rem;
 }
 
-.suede-world {
-  width: 100%;
-  max-width: 400px;
+.top {
   display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-/* ——— Outer leather plate (promo board) ——— */
-.leather-board {
-  position: relative;
-  border-radius: 36px;
-  border: 2px solid #3d2a1a;
-  padding: 1.5rem 1.25rem 1.55rem;
-  background:
-    radial-gradient(120% 80% at 15% 0%, rgba(255, 220, 160, 0.22), transparent 50%),
-    radial-gradient(90% 70% at 95% 100%, rgba(40, 22, 10, 0.28), transparent 55%),
-    linear-gradient(165deg, #8b6644 0%, #7a5838 28%, #6a4a2e 62%, #5c4028 100%);
-  box-shadow:
-    0 2px 0 rgba(255, 230, 180, 0.18) inset,
-    0 -20px 40px rgba(0, 0, 0, 0.22) inset,
-    0 32px 64px rgba(20, 10, 4, 0.5),
-    0 0 0 1px rgba(90, 60, 30, 0.35);
-  isolation: isolate;
-}
-
-/* Dual gold stitch around board */
-.leather-board::before {
-  content: "";
-  position: absolute;
-  inset: 10px;
-  border-radius: 28px;
-  border: 2.5px dashed #e8c86a;
-  opacity: 0.95;
-  pointer-events: none;
-  z-index: 1;
-  filter: drop-shadow(0 0.5px 0 rgba(80, 50, 10, 0.35));
-}
-
-.leather-board::after {
-  content: "";
-  position: absolute;
-  inset: 15px;
-  border-radius: 24px;
-  border: 1.75px dashed rgba(232, 200, 106, 0.55);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.leather-board > * {
-  position: relative;
-  z-index: 2;
-}
-
-/* ——— Brand: yellow ghost mark + mint HubLife ——— */
-.leather-header {
+.brand-block {
   display: flex;
+  gap: 0.75rem;
   align-items: center;
-  gap: 0.9rem;
-  margin-bottom: 1.4rem;
-  padding: 0.2rem 0.35rem 0.4rem;
 }
 
+/* Snapchat yellow glow on the HubLife mark */
 .logo {
-  width: 58px;
-  height: 58px;
-  border-radius: 16px;
+  --snap-yellow: #fffc00;
+  --snap-glow: rgba(255, 252, 0, 0.55);
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
   display: grid;
   place-items: center;
-  flex-shrink: 0;
-  color: #fffef5;
-  border: 1px solid rgba(255, 252, 80, 0.75);
+  color: #1a1508;
+  border: 1px solid rgba(255, 252, 0, 0.55);
   background:
-    radial-gradient(130% 110% at 30% 12%, rgba(255, 255, 220, 0.75), transparent 55%),
-    linear-gradient(155deg, #fff66a 0%, #fffc00 45%, #f0e000 100%);
+    radial-gradient(120% 100% at 30% 18%, rgba(255, 255, 220, 0.55), transparent 55%),
+    linear-gradient(160deg, #fff566 0%, #fffc00 45%, #e6d000 100%);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.6) inset,
-    0 0 20px rgba(255, 252, 0, 0.7),
-    0 0 40px rgba(255, 240, 0, 0.35),
-    0 8px 18px rgba(0, 0, 0, 0.28);
+    0 1px 0 rgba(255, 255, 255, 0.45) inset,
+    0 0 14px var(--snap-glow),
+    0 0 28px rgba(255, 252, 0, 0.28),
+    0 4px 14px rgba(0, 0, 0, 0.28);
 }
 
-.leather-header h1 {
-  margin: 0;
-  font-size: clamp(1.95rem, 8.5vw, 2.5rem);
-  font-weight: 750;
+.top h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1;
-  color: #8fd9a0;
+  margin: 0;
+  /* Soft green wordmark glow */
+  color: #8fe0a0;
   text-shadow:
-    0 0 12px rgba(120, 230, 150, 0.7),
-    0 0 28px rgba(90, 210, 130, 0.45),
-    0 0 48px rgba(70, 190, 110, 0.25);
+    0 0 12px rgba(100, 220, 130, 0.55),
+    0 0 28px rgba(80, 200, 110, 0.35),
+    0 0 48px rgba(60, 180, 90, 0.18);
 }
 
-/* ——— 6 solid colour stitched cards ——— */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.8rem;
+.tag {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  font-family: var(--mono);
 }
 
-.tile {
-  --stitch: #e0c068;
-  position: relative;
-  aspect-ratio: 0.86;
-  min-height: 112px;
-  border-radius: 18px;
-  border: 1.5px solid color-mix(in srgb, var(--tile-accent) 55%, #2a1a0c 45%);
-  padding: 0.9rem 0.35rem 0.75rem;
-  cursor: pointer;
+.top-meta {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.clock {
+  margin: 0;
+  text-align: right;
+  line-height: 1.2;
+}
+
+.clock-time {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.clock-date {
+  display: block;
+  font-size: 0.68rem;
+  font-family: var(--mono);
+  color: var(--text-faint);
+}
+
+.ready-pill {
+  margin: 0;
+  font-size: 0.72rem;
+  font-family: var(--mono);
+  color: var(--accent);
+  border: 1px solid rgba(196, 120, 58, 0.3);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  white-space: nowrap;
+}
+
+.version-switch {
+  margin: 0;
+  border: 1px solid rgba(196, 120, 58, 0.35);
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 650;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.version-switch:hover {
+  color: var(--text);
+  border-color: rgba(196, 120, 58, 0.55);
+}
+
+.cta-resume {
+  width: 100%;
+  margin: 0.65rem 0 0;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background:
+    radial-gradient(120% 90% at 20% 0%, var(--suede-highlight), transparent 50%),
+    var(--bg-elevated);
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  isolation: isolate;
-  background:
-    radial-gradient(
-      130% 100% at 28% 10%,
-      color-mix(in srgb, var(--tile-accent) 100%, white 18%),
-      transparent 52%
-    ),
-    radial-gradient(
-      100% 90% at 88% 100%,
-      rgba(20, 12, 6, 0.28),
-      transparent 48%
-    ),
-    linear-gradient(
-      168deg,
-      color-mix(in srgb, var(--tile-accent) 92%, white 8%) 0%,
-      var(--tile-accent) 50%,
-      color-mix(in srgb, var(--tile-accent) 78%, black 22%) 100%
-    );
-  box-shadow:
-    0 1.5px 0 color-mix(in srgb, var(--tile-accent) 40%, white 35%) inset,
-    0 -12px 22px rgba(0, 0, 0, 0.22) inset,
-    0 10px 22px rgba(12, 6, 2, 0.4);
-  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+  gap: 0.45rem;
+  box-shadow: 0 6px 16px var(--suede-shadow);
 }
 
-/* Gold double stitch on every card (promo) */
-.tile::before {
-  content: "";
-  position: absolute;
-  inset: 6px;
-  border-radius: 13px;
-  border: 2.15px dashed var(--stitch);
-  opacity: 0.92;
-  pointer-events: none;
-  z-index: 1;
-  filter: drop-shadow(0 0.4px 0 rgba(60, 40, 10, 0.35));
+.cta-resume svg {
+  color: var(--accent);
+  opacity: 0.95;
 }
 
-.tile::after {
-  content: "";
-  position: absolute;
-  inset: 10px;
-  border-radius: 11px;
-  border: 1.35px dashed color-mix(in srgb, var(--stitch) 70%, transparent);
-  opacity: 0.55;
-  pointer-events: none;
-  z-index: 1;
+.cta-resume:hover {
+  border-color: rgba(196, 120, 58, 0.45);
 }
 
-.tile > * {
-  position: relative;
-  z-index: 2;
-}
-
-.tile.live:hover {
-  transform: translateY(-3px) scale(1.03);
-  filter: brightness(1.06);
-  box-shadow:
-    0 1.5px 0 color-mix(in srgb, var(--tile-accent) 50%, white 35%) inset,
-    0 -10px 18px rgba(0, 0, 0, 0.2) inset,
-    0 16px 34px rgba(12, 6, 2, 0.48),
-    0 0 28px color-mix(in srgb, var(--tile-accent) 38%, transparent);
-}
-
-.tile.soon {
-  opacity: 0.48;
-  cursor: not-allowed;
-  filter: grayscale(0.2);
-}
-
-.tile.recent {
-  box-shadow:
-    0 1.5px 0 color-mix(in srgb, var(--tile-accent) 50%, white 30%) inset,
-    0 -10px 18px rgba(0, 0, 0, 0.2) inset,
-    0 12px 26px rgba(12, 6, 2, 0.45),
-    0 0 0 1.5px color-mix(in srgb, var(--stitch) 70%, var(--tile-accent) 30%),
-    0 0 22px color-mix(in srgb, var(--tile-accent) 30%, transparent);
-}
-
-/* Dark line icons + labels on dyed suede */
-.tile-icon {
-  display: grid;
-  place-items: center;
-  color: rgba(18, 12, 6, 0.88);
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.1));
-}
-
-.tile-name {
-  font-weight: 750;
-  font-size: 0.76rem;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  text-align: center;
-  color: rgba(16, 10, 6, 0.9);
-  max-width: 100%;
-  padding: 0 0.1rem;
-}
-
-/* ——— Utility under board ——— */
-.utility {
+.shortcuts {
   display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+
+.chip {
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(100% 120% at 30% 0%, var(--suede-highlight), transparent 55%),
+    var(--bg-soft);
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.chip svg {
+  opacity: 0.88;
+  color: var(--accent);
+}
+
+.chip:hover:not(:disabled) {
+  border-color: rgba(196, 120, 58, 0.4);
+  color: var(--text);
+}
+
+.chip:disabled,
+.chip-soon {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.install-tip {
+  margin: 1.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  margin: 0 0 0.65rem;
+}
+
+.lede {
+  color: var(--text-muted);
+  margin: 0 0 1.25rem;
+  font-size: 0.98rem;
 }
 
 .cta-brief {
+  width: 100%;
   border: none;
-  border-radius: 14px;
-  padding: 0.8rem 1rem;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  color: #1a1008;
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  /* Matte cognac suede CTA — soft nap, low specular */
   background:
-    radial-gradient(140% 100% at 15% 0%, rgba(255, 220, 170, 0.22), transparent 50%),
-    linear-gradient(160deg, #d4a060 0%, #b87a3a 50%, #9a6028 100%);
+    radial-gradient(140% 100% at 15% 0%, rgba(255, 220, 170, 0.18), transparent 50%),
+    linear-gradient(160deg, #c98a4e 0%, #b56d32 42%, #9a5824 100%);
+  color: #1a1008;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
   box-shadow:
-    0 1px 0 rgba(255, 230, 190, 0.25) inset,
-    0 8px 20px rgba(70, 40, 15, 0.3);
+    0 1px 0 rgba(255, 230, 190, 0.2) inset,
+    0 10px 28px rgba(90, 50, 20, 0.35);
+}
+
+.cta-brief span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.8;
 }
 
 .cta-brief:hover {
-  filter: brightness(1.05);
+  filter: brightness(1.04) saturate(1.02);
 }
 
 .intent-form {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.4rem;
-  padding: 0.4rem;
-  border-radius: 14px;
-  border: 1px solid rgba(180, 130, 80, 0.28);
-  background: rgba(28, 18, 12, 0.5);
-  box-shadow: 0 8px 20px rgba(12, 6, 2, 0.32);
+  grid-template-columns: auto 1fr auto;
+  gap: 0.35rem;
+  align-items: center;
+  padding: 0.45rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-strong);
+  background:
+    radial-gradient(100% 120% at 50% 0%, var(--suede-highlight), transparent 55%),
+    var(--bg-elevated);
+  box-shadow: 0 8px 20px var(--suede-shadow);
+}
+
+.intent-search-ico {
+  display: grid;
+  place-items: center;
+  padding-left: 0.55rem;
+  color: var(--text-faint);
 }
 
 .intent-form input {
   border: none;
   background: transparent;
-  color: #f8efe4;
-  padding: 0.55rem 0.65rem;
+  color: var(--text);
+  padding: 0.65rem 0.5rem;
   font: inherit;
   min-width: 0;
 }
 
 .intent-form input::placeholder {
-  color: rgba(248, 239, 228, 0.38);
+  color: var(--text-faint);
 }
 
 .intent-form input:focus {
@@ -281,57 +284,229 @@
 
 .go-btn {
   border: none;
-  border-radius: 11px;
-  padding: 0 1rem;
-  background: #c9a227;
+  border-radius: 12px;
+  padding: 0 1.1rem;
+  background: var(--accent);
   color: #1a1008;
   font-weight: 700;
   cursor: pointer;
-  min-height: 40px;
 }
 
 .hint {
-  margin: 0;
-  font-size: 0.8rem;
-  color: #e8c39a;
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+/* Cognac suede panels + heavy gold hand-stitching */
+.tile {
+  --stitch: #ecc86a;
+  --stitch-bright: #f5df9a;
+  --stitch-dim: rgba(236, 200, 106, 0.55);
+  --suede-edge: #2a1c12;
+  position: relative;
+  text-align: left;
+  border-radius: 18px;
+  border: 2.5px solid var(--suede-edge);
+  /* Soft suede base + slightly brighter per-app colour wash (tinted suede) */
+  background:
+    radial-gradient(
+      130% 100% at 18% 0%,
+      color-mix(in srgb, var(--tile-accent, var(--accent)) 34%, transparent),
+      transparent 58%
+    ),
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--tile-accent, var(--accent)) 22%, transparent),
+      color-mix(in srgb, var(--tile-accent, var(--accent)) 6%, transparent) 42%,
+      transparent 72%
+    ),
+    radial-gradient(120% 90% at 25% 10%, rgba(232, 200, 150, 0.12), transparent 55%),
+    radial-gradient(90% 80% at 80% 90%, rgba(30, 18, 10, 0.4), transparent 50%),
+    linear-gradient(185deg, #2c2219 0%, #1c1611 48%, #16110d 100%);
+  padding: 1.2rem 1.05rem 1.05rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-height: 138px;
+  isolation: isolate;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--tile-accent, var(--accent)) 18%, rgba(255, 220, 170, 0.06)) inset,
+    0 -8px 18px rgba(0, 0, 0, 0.2) inset,
+    0 12px 26px rgba(12, 8, 5, 0.42),
+    0 0 0 1px color-mix(in srgb, var(--tile-accent, var(--accent)) 22%, rgba(196, 120, 58, 0.08));
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+/* Outer gold stitch — thicker dashed thread */
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 13px;
+  border: 2.5px dashed var(--stitch);
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 1;
+  /* slight “thread depth” */
+  box-shadow:
+    0 0.5px 0 rgba(80, 45, 8, 0.55),
+    0 0 0 1px rgba(40, 24, 8, 0.25);
+}
+
+/* Inner parallel stitch — heavier double-needle */
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 8.5px;
+  border-radius: 10px;
+  border: 1.75px dashed var(--stitch-dim);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: 0 0.5px 0 rgba(60, 35, 5, 0.35);
+}
+
+.tile > * {
+  position: relative;
+  z-index: 2;
+}
+
+.tile.live:hover {
+  transform: translateY(-2px);
+  border-color: #3d2a18;
+  filter: brightness(1.045);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--tile-accent, var(--accent)) 22%, rgba(255, 230, 180, 0.08)) inset,
+    0 -6px 16px rgba(0, 0, 0, 0.15) inset,
+    0 16px 32px rgba(12, 8, 5, 0.45),
+    0 0 0 1px color-mix(in srgb, var(--tile-accent, var(--accent)) 42%, transparent),
+    0 0 28px color-mix(in srgb, var(--tile-accent, var(--accent)) 14%, transparent);
+}
+
+.tile.live:hover::before {
+  opacity: 1;
+  border-color: var(--stitch-bright);
+  border-width: 2.75px;
+}
+
+.tile.live:hover::after {
+  opacity: 1;
+  border-color: rgba(245, 223, 154, 0.65);
+}
+
+.tile.soon {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.tile.soon::before,
+.tile.soon::after {
+  opacity: 0.4;
+}
+
+.tile.recent {
+  box-shadow:
+    0 1px 0 rgba(255, 230, 180, 0.08) inset,
+    0 10px 22px rgba(0, 0, 0, 0.28),
+    0 0 0 1px color-mix(in srgb, var(--tile-accent) 45%, var(--stitch) 30%);
+}
+
+.tile.recent::before {
+  border-color: var(--stitch-bright);
+  border-width: 2.75px;
+  opacity: 1;
+}
+
+.tile.recent::after {
+  border-color: rgba(245, 223, 154, 0.7);
+  opacity: 1;
+}
+
+.tile-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  margin-bottom: 0.35rem;
+  color: color-mix(in srgb, var(--tile-accent, var(--accent)) 78%, #f5ebe0 22%);
+  background:
+    radial-gradient(
+      120% 100% at 30% 20%,
+      color-mix(in srgb, var(--tile-accent, var(--accent)) 28%, rgba(255, 230, 190, 0.1)),
+      transparent 62%
+    ),
+    color-mix(in srgb, var(--tile-accent, var(--accent)) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tile-accent, var(--accent)) 38%, transparent);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--tile-accent, var(--accent)) 25%, transparent) inset,
+    0 0 14px color-mix(in srgb, var(--tile-accent, var(--accent)) 16%, transparent);
+}
+
+.tile-name {
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: -0.02em;
+}
+
+.tile-job {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  flex: 1;
+}
+
+.tile-status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tile-accent, var(--accent));
+  font-family: var(--mono);
+  margin-top: 0.35rem;
+}
+
+.foot {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
   text-align: center;
 }
 
-.version-switch {
-  align-self: center;
-  border: 1px solid rgba(196, 140, 70, 0.28);
-  background: transparent;
-  color: rgba(245, 235, 220, 0.42);
-  border-radius: 999px;
-  padding: 0.3rem 0.65rem;
-  font-size: 0.68rem;
-  font-weight: 650;
-  cursor: pointer;
+.foot p {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
-.version-switch:hover {
-  color: rgba(245, 235, 220, 0.75);
+.fine {
+  font-size: 0.72rem !important;
+  color: var(--text-faint) !important;
+  font-family: var(--mono);
 }
 
-@media (max-width: 360px) {
+.fine code {
+  font-size: 0.7rem;
+  color: var(--accent);
+}
+
+@media (min-width: 560px) {
+  .shell {
+    max-width: 640px;
+    padding-top: 2rem;
+  }
+
   .grid {
-    gap: 0.55rem;
-  }
-
-  .tile {
-    min-height: 98px;
-  }
-
-  .tile-name {
-    font-size: 0.68rem;
-  }
-
-  .leather-header h1 {
-    font-size: 1.75rem;
-  }
-
-  .logo {
-    width: 50px;
-    height: 50px;
+    grid-template-columns: 1fr 1fr;
   }
 }
