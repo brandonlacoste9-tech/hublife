@@ -69,6 +69,50 @@
   gap: 0.4rem;
 }
 
+.auth-chip {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.auth-chip-loading {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+.auth-sign-in {
+  border: 1px solid rgba(196, 120, 58, 0.45);
+  background:
+    radial-gradient(120% 100% at 20% 0%, rgba(255, 220, 170, 0.16), transparent 55%),
+    var(--bg-elevated);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-sign-in:hover {
+  border-color: rgba(196, 120, 58, 0.7);
+}
+
+.auth-user {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.auth-name {
+  font-size: 0.75rem;
+  font-weight: 650;
+  color: var(--text-muted);
+  max-width: 7rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .clock {
   margin: 0;
   text-align: right;

@@ -28,24 +28,35 @@ Tagline: **Live · Create · Decide · Plan · Play · Snap**
 ### Spoke intake
 | App | Behaviour |
 |-----|-----------|
-| **Grok** | Banner + `intent=brief` auto-runs morning briefing |
-| **ChatSnap** | Banner + `intent=snap` stashed for post-auth camera path |
-| Others | Query params preserved for future handlers |
+| **Grok** | Banner + `intent=brief` auto-runs morning briefing + HubLife link |
+| **ChatSnap** | Banner + `intent=snap` stashed for post-auth |
+| **Wacké** | Header chip → HubLife |
+| **Zyeuté** | Desktop header chip → HubLife |
+| **FloGuru** | Footer link → HubLife |
+| **Hell Yeah** | Nav + mobile → HubLife |
 
 ## Hub product surface
 - Morning briefing → Grok `intent=brief`
 - Resume last app + intent
 - Free-text intent router
 - Shortcut chips + PWA shortcuts (`/?shortcut=brief|live|snap`)
-- Cognac v1 only (alt skin at `?v=2` for experiments)
+- Clerk sign-in (optional, when `VITE_CLERK_PUBLISHABLE_KEY` set)
+- Thin local network profile — see [PROFILE.md](./PROFILE.md)
+- Cognac v1 only (alt skin at `?v=2`)
 - OG share image: `/og.jpg`
 
 ## Ops
 - Health log: [HEALTH.md](./HEALTH.md)
 - Brand prompts: [PROMPTS.md](./PROMPTS.md)
+- Profile: [PROFILE.md](./PROFILE.md)
 - Smoke: `powershell -File scripts/smoke-network.ps1`
 
+## Clerk setup notes
+1. Reuse Grok’s Clerk application or create “North Network”
+2. Allow origins: `https://hublife.ca`, `http://localhost:5173`
+3. Set Netlify env `VITE_CLERK_PUBLISHABLE_KEY` on **hublife-192**
+
 ## Next waves
-1. Spoke footers / “Back to HubLife” on Wacké / Zyeuté / FloGuru / Hell Yeah  
-2. Clerk sign-in on HubLife  
-3. Intent API + thin shared profile  
+1. Server Intent API when spokes need shared prefs  
+2. Spoke footers on remaining surfaces (mobile Zyeuté, Wacké stream overlay)  
+3. Cross-app “return to HubLife” toast after deep-link sessions  

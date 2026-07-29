@@ -1,5 +1,7 @@
 /** North Network — single source of truth for HubLife deep links */
 
+import { recordAppOpen } from "./profile";
+
 export const NETWORK_BRAND = "North Network";
 export const NETWORK_TAGLINE = "Live · Create · Decide · Plan · Play · Snap";
 
@@ -154,6 +156,11 @@ export function openApp(
   const href = buildNetworkUrl(app, { ...opts, intent });
   if (!href) return false;
   rememberLaunch(app.id, intent);
+  try {
+    recordAppOpen(app.id, intent);
+  } catch {
+    /* ignore */
+  }
   window.open(href, "_blank", "noopener,noreferrer");
   return true;
 }

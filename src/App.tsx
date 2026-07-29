@@ -13,7 +13,12 @@ import {
   type NetworkIntent,
 } from "./lib/network";
 import { AppIcon } from "./lib/appIcons";
+import { AuthChip } from "./components/AuthChip";
+import { ProfileSync } from "./components/ProfileSync";
+import { readProfile } from "./lib/profile";
 import "./App.css";
+
+const CLERK_ON = Boolean(import.meta.env.VITE_CLERK_PUBLISHABLE_KEY);
 
 function timeGreeting(): string {
   const h = new Date().getHours();
@@ -92,6 +97,7 @@ export default function App() {
   const [lastAppId, setLastAppId] = useState<NetworkAppId | null>(null);
   const [lastIntent, setLastIntent] = useState<NetworkIntent | null>(null);
   const [installHint, setInstallHint] = useState(false);
+  const [displayName, setDisplayName] = useState<string | null>(null);
 
   useEffect(() => {
     const t = window.setInterval(() => setNow(new Date()), 30_000);
@@ -102,6 +108,12 @@ export default function App() {
     const last = readLastLaunch();
     if (last.appId) setLastAppId(last.appId);
     if (last.intent) setLastIntent(last.intent);
+    try {
+      const p = readProfile();
+      if (p.displayName) setDisplayName(p.displayName);
+    } catch {
+      /* ignore */
+    }
     try {
       const standalone =
         window.matchMedia("(display-mode: standalone)").matches ||
@@ -206,6 +218,7 @@ export default function App() {
 
   return (
     <div className="shell">
+      {CLERK_ON ? <ProfileSync /> : null}
       <header className="top">
         <div className="brand-block">
           <span className="logo" aria-hidden>
@@ -219,6 +232,7 @@ export default function App() {
           </div>
         </div>
         <div className="top-meta">
+          {CLERK_ON ? <AuthChip /> : null}
           <p className="clock" aria-live="polite">
             <span className="clock-time">{formatClock(now)}</span>
             <span className="clock-date">{formatDate(now)}</span>
@@ -232,7 +246,8 @@ export default function App() {
       <main>
         <section className="hero">
           <h2>
-            {timeGreeting()}.
+            {timeGreeting()}
+            {displayName ? `, ${displayName}` : ""}.
             <br />
             What do you need?
           </h2>
