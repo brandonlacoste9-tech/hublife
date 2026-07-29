@@ -1,6 +1,7 @@
 # North Network · production health
 
-Last smoke pass: **2026-07-29** (automated from HubLife workspace).
+Last smoke pass: **2026-07-29** (automated from HubLife workspace).  
+ChatSnap Supabase Auth settings: **200** (project `cicyejwkmvsoodivqbcp`).
 
 ## Hub
 
