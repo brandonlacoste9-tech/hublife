@@ -6,6 +6,7 @@ import {
   buildNetworkUrl,
   getApp,
   openApp,
+  readLastLaunch,
   routeIntent,
   type NetworkApp,
   type NetworkAppId,
@@ -42,26 +43,54 @@ type Shortcut = {
   label: string;
   appId: NetworkAppId;
   intent: NetworkIntent;
+  campaign: string;
 };
 
 const SHORTCUTS: Shortcut[] = [
-  { label: "Brief me", appId: "grok", intent: "brief" },
-  { label: "What's live", appId: "wacke", intent: "watch" },
-  { label: "Snap crew", appId: "chatsnap", intent: "snap" },
-  { label: "I'm bored", appId: "hellyeah", intent: "play" },
-  { label: "Plan day", appId: "floguru", intent: "plan" },
-  { label: "Shorts", appId: "zyeute", intent: "create" },
+  {
+    label: "Brief me",
+    appId: "grok",
+    intent: "brief",
+    campaign: "hublife_chip_brief",
+  },
+  {
+    label: "What's live",
+    appId: "wacke",
+    intent: "watch",
+    campaign: "hublife_chip_live",
+  },
+  {
+    label: "Snap crew",
+    appId: "chatsnap",
+    intent: "snap",
+    campaign: "hublife_chip_snap",
+  },
+  {
+    label: "I'm bored",
+    appId: "hellyeah",
+    intent: "play",
+    campaign: "hublife_chip_play",
+  },
+  {
+    label: "Plan day",
+    appId: "floguru",
+    intent: "plan",
+    campaign: "hublife_chip_plan",
+  },
+  {
+    label: "Shorts",
+    appId: "zyeute",
+    intent: "create",
+    campaign: "hublife_chip_shorts",
+  },
 ];
 
-type Props = {
-  onSwitchVersion?: () => void;
-};
-
-export default function App({ onSwitchVersion }: Props) {
+export default function App() {
   const [query, setQuery] = useState("");
   const [hint, setHint] = useState<string | null>(null);
   const [now, setNow] = useState(() => new Date());
   const [lastAppId, setLastAppId] = useState<NetworkAppId | null>(null);
+  const [lastIntent, setLastIntent] = useState<NetworkIntent | null>(null);
   const [installHint, setInstallHint] = useState(false);
 
   useEffect(() => {
@@ -70,12 +99,9 @@ export default function App({ onSwitchVersion }: Props) {
   }, []);
 
   useEffect(() => {
-    try {
-      const id = localStorage.getItem("hublife_last_app") as NetworkAppId | null;
-      if (id && getApp(id)) setLastAppId(id);
-    } catch {
-      /* ignore */
-    }
+    const last = readLastLaunch();
+    if (last.appId) setLastAppId(last.appId);
+    if (last.intent) setLastIntent(last.intent);
     try {
       const standalone =
         window.matchMedia("(display-mode: standalone)").matches ||
@@ -86,26 +112,64 @@ export default function App({ onSwitchVersion }: Props) {
     } catch {
       /* ignore */
     }
+
+    // PWA shortcuts: /?shortcut=brief|live|snap
+    try {
+      const sp = new URLSearchParams(window.location.search);
+      const sc = sp.get("shortcut");
+      if (!sc) return;
+      const map: Record<string, { appId: NetworkAppId; intent: NetworkIntent; campaign: string }> =
+        {
+          brief: { appId: "grok", intent: "brief", campaign: "hublife_pwa_brief" },
+          live: { appId: "wacke", intent: "watch", campaign: "hublife_pwa_live" },
+          snap: {
+            appId: "chatsnap",
+            intent: "snap",
+            campaign: "hublife_pwa_snap",
+          },
+        };
+      const hit = map[sc];
+      if (!hit) return;
+      const app = getApp(hit.appId);
+      if (!app?.url) return;
+      openApp(app, { intent: hit.intent, campaign: hit.campaign });
+      setLastAppId(hit.appId);
+      setLastIntent(hit.intent);
+      const url = new URL(window.location.href);
+      url.searchParams.delete("shortcut");
+      window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+    } catch {
+      /* ignore */
+    }
   }, []);
 
   const readyCount = useMemo(() => APPS.filter((a) => a.url).length, []);
   const lastApp = lastAppId ? getApp(lastAppId) : undefined;
 
-  const launch = (app: NetworkApp, intent?: NetworkIntent) => {
+  const launch = (
+    app: NetworkApp,
+    intent?: NetworkIntent,
+    campaign?: string,
+  ) => {
     if (!app.url) {
       setHint(`${app.name} URL coming soon.`);
       return;
     }
+    const useIntent = intent ?? app.intentDefault;
     setHint(null);
     setLastAppId(app.id);
-    openApp(app, intent ? { intent } : undefined);
+    setLastIntent(useIntent);
+    openApp(app, {
+      intent: useIntent,
+      campaign: campaign ?? "hublife_tile",
+    });
   };
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     const hit = routeIntent(query);
     if (!hit) {
-      setHint("Try: briefing, live, snap, bored, plan my day, shorts…");
+      setHint("Try: briefing · live · snap · bored · plan · shorts");
       return;
     }
     const app = getApp(hit.appId);
@@ -116,18 +180,28 @@ export default function App({ onSwitchVersion }: Props) {
     }
     setHint(`Opening ${hit.label}…`);
     setLastAppId(app.id);
-    openApp(app, { intent: hit.intent });
+    setLastIntent(hit.intent);
+    openApp(app, { intent: hit.intent, campaign: "hublife_search" });
   };
 
   const openBriefing = () => {
     const grok = getApp("grok");
     if (!grok?.url) return;
     setLastAppId("grok");
+    setLastIntent("brief");
     const url = buildNetworkUrl(grok, {
       intent: "brief",
       campaign: "hublife_brief",
     });
-    if (url) window.open(url, "_blank", "noopener,noreferrer");
+    if (url) {
+      try {
+        localStorage.setItem("hublife_last_app", "grok");
+        localStorage.setItem("hublife_last_intent", "brief");
+      } catch {
+        /* ignore */
+      }
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
   };
 
   return (
@@ -149,19 +223,9 @@ export default function App({ onSwitchVersion }: Props) {
             <span className="clock-time">{formatClock(now)}</span>
             <span className="clock-date">{formatDate(now)}</span>
           </p>
-          <p className="ready-pill">
+          <p className="ready-pill" title="All North Network spokes linked">
             {readyCount}/{APPS.length} live
           </p>
-          {onSwitchVersion ? (
-            <button
-              type="button"
-              className="version-switch"
-              onClick={onSwitchVersion}
-              title="Optional blue glass preview — not the main hub"
-            >
-              Preview alt skin
-            </button>
-          ) : null}
         </div>
       </header>
 
@@ -179,17 +243,28 @@ export default function App({ onSwitchVersion }: Props) {
 
           <button type="button" className="cta-brief" onClick={openBriefing}>
             Morning briefing
-            <span>Opens Grok Assistant with intent=brief</span>
+            <span>Grok · weather, calendar, what matters today</span>
           </button>
 
           {lastApp?.url ? (
             <button
               type="button"
               className="cta-resume"
-              onClick={() => launch(lastApp)}
+              onClick={() =>
+                launch(
+                  lastApp,
+                  lastIntent ?? lastApp.intentDefault,
+                  "hublife_resume",
+                )
+              }
             >
               <AppIcon id={lastApp.id} size={15} />
-              <span>Resume {lastApp.name}</span>
+              <span>
+                Resume {lastApp.name}
+                {lastIntent && lastIntent !== lastApp.intentDefault
+                  ? ` · ${lastIntent}`
+                  : ""}
+              </span>
             </button>
           ) : null}
 
@@ -233,7 +308,7 @@ export default function App({ onSwitchVersion }: Props) {
                   type="button"
                   className={`chip ${live ? "" : "chip-soon"}`}
                   disabled={!live}
-                  onClick={() => app && launch(app, s.intent)}
+                  onClick={() => app && launch(app, s.intent, s.campaign)}
                 >
                   <AppIcon id={s.appId} size={14} />
                   <span>{s.label}</span>
@@ -268,10 +343,23 @@ export default function App({ onSwitchVersion }: Props) {
           })}
         </section>
 
+        <section className="spoke-strip" aria-label="Network status">
+          {APPS.map((app) => (
+            <span
+              key={app.id}
+              className={`spoke-dot ${app.url ? "ok" : "down"}`}
+              title={app.url ? `${app.name} linked` : `${app.name} soon`}
+            >
+              <i style={{ background: app.accent }} />
+              {app.name.split(" ")[0]}
+            </span>
+          ))}
+        </section>
+
         {installHint ? (
           <p className="install-tip">
             Tip: on your phone, use <strong>Add to Home Screen</strong> so
-            HubLife is one tap away.
+            HubLife is one tap away. Shortcuts: Brief me · Live · Snap.
           </p>
         ) : null}
       </main>
@@ -282,7 +370,8 @@ export default function App({ onSwitchVersion }: Props) {
         </p>
         <p className="fine">
           Deep links use <code>from=network</code> · Hub for Grok, Wacké,
-          Zyeuté, FloGuru, Hell Yeah Games &amp; ChatSnap
+          Zyeuté, FloGuru, Hell Yeah Games &amp; ChatSnap ·{" "}
+          <a href="https://hublife.ca">hublife.ca</a>
         </p>
       </footer>
     </div>

@@ -5,10 +5,8 @@ import AppV2 from "./AppV2";
 type Version = "v1" | "v2";
 
 /**
- * Classic cognac HubLife is always the default.
- * Alt skin only when URL has ?v=2 (or you click "Alt skin").
- * We no longer sticky-restore v2 from localStorage — that kept people
- * stuck on the blue aurora preview.
+ * Classic cognac HubLife is the product.
+ * Alt skin (v2) is hidden from the main UI — only ?v=2 for experiments.
  */
 function readInitialVersion(): Version {
   try {
@@ -25,7 +23,6 @@ export default function Root() {
 
   useEffect(() => {
     try {
-      // Clear any old sticky preference so refresh lands on cognac v1
       localStorage.removeItem("hublife_ui_version");
       const url = new URL(window.location.href);
       if (version === "v2") {
@@ -43,6 +40,6 @@ export default function Root() {
     return <AppV2 onSwitchVersion={() => setVersion("v1")} />;
   }
 
-  // Classic cognac shell + line icons (v2 flavour, v1 layout)
-  return <App onSwitchVersion={() => setVersion("v2")} />;
+  // No alt-skin button on the product home
+  return <App />;
 }

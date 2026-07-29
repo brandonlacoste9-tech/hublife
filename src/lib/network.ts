@@ -90,13 +90,16 @@ export const APPS: NetworkApp[] = [
   },
 ];
 
+const LAST_APP_KEY = "hublife_last_app";
+const LAST_INTENT_KEY = "hublife_last_intent";
+
 export function buildNetworkUrl(
   app: NetworkApp,
   opts?: {
     via?: NetworkAppId;
     intent?: NetworkIntent;
     campaign?: string;
-  }
+  },
 ): string | null {
   if (!app.url) return null;
   const via = opts?.via ?? "hublife";
@@ -112,17 +115,45 @@ export function buildNetworkUrl(
   return u.toString();
 }
 
-export function openApp(
-  app: NetworkApp,
-  opts?: { via?: NetworkAppId; intent?: NetworkIntent }
-) {
-  const href = buildNetworkUrl(app, opts);
-  if (!href) return false;
+export function rememberLaunch(appId: NetworkAppId, intent?: NetworkIntent) {
   try {
-    localStorage.setItem("hublife_last_app", app.id);
+    localStorage.setItem(LAST_APP_KEY, appId);
+    if (intent) localStorage.setItem(LAST_INTENT_KEY, intent);
   } catch {
     /* ignore */
   }
+}
+
+export function readLastLaunch(): {
+  appId: NetworkAppId | null;
+  intent: NetworkIntent | null;
+} {
+  try {
+    const appId = localStorage.getItem(LAST_APP_KEY) as NetworkAppId | null;
+    const intent = localStorage.getItem(
+      LAST_INTENT_KEY,
+    ) as NetworkIntent | null;
+    return {
+      appId: appId && getApp(appId) ? appId : null,
+      intent: intent ?? null,
+    };
+  } catch {
+    return { appId: null, intent: null };
+  }
+}
+
+export function openApp(
+  app: NetworkApp,
+  opts?: {
+    via?: NetworkAppId;
+    intent?: NetworkIntent;
+    campaign?: string;
+  },
+) {
+  const intent = opts?.intent ?? app.intentDefault;
+  const href = buildNetworkUrl(app, { ...opts, intent });
+  if (!href) return false;
+  rememberLaunch(app.id, intent);
   window.open(href, "_blank", "noopener,noreferrer");
   return true;
 }
@@ -137,30 +168,38 @@ export function routeIntent(text: string): {
   if (!t) return null;
 
   if (
-    /\b(brief|briefing|good morning|plan my day|weather|calendar|email|task)\b/.test(
-      t
+    /\b(brief|briefing|good morning|morning brief|weather|calendar|email|task|appointment|schedule)\b/.test(
+      t,
     ) ||
     /\b(decide|think|assistant|grok)\b/.test(t)
   ) {
     return {
       appId: "grok",
-      intent: /\bbrief|morning\b/.test(t) ? "brief" : "ask",
+      intent: /\b(brief|morning|weather|calendar)\b/.test(t) ? "brief" : "ask",
       label: "Grok Assistant",
     };
   }
-  if (/\b(live|stream|watch|wacke|kick|twitch)\b/.test(t)) {
+  if (/\b(live|stream|watch|wacke|kick|twitch|going live)\b/.test(t)) {
     return { appId: "wacke", intent: "watch", label: "Wacké" };
   }
-  if (/\b(clip|zyeute|tiktok|short video|create video)\b/.test(t)) {
+  if (
+    /\b(clip|zyeute|tiktok|short video|shorts|create video|réel|reel)\b/.test(t)
+  ) {
     return { appId: "zyeute", intent: "create", label: "Zyeuté" };
   }
-  if (/\b(bored|game|play|hell yeah)\b/.test(t)) {
+  if (/\b(bored|game|play|hell yeah|arcade|reset)\b/.test(t)) {
     return { appId: "hellyeah", intent: "play", label: "Hell Yeah Games" };
   }
-  if (/\b(floguru|lifestyle|routine|habit)\b/.test(t)) {
+  if (
+    /\b(floguru|lifestyle|routine|habit|plan my day|plan day|planner)\b/.test(
+      t,
+    )
+  ) {
     return { appId: "floguru", intent: "plan", label: "FloGuru" };
   }
-  if (/\b(snap|chatsnap|ghost|story|stories|friends only)\b/.test(t)) {
+  if (
+    /\b(snap|chatsnap|ghost|story|stories|friends only|crew|dm)\b/.test(t)
+  ) {
     return { appId: "chatsnap", intent: "snap", label: "ChatSnap" };
   }
   return null;

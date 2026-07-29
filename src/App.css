@@ -197,6 +197,53 @@
   text-align: center;
 }
 
+/* Compact live status row under the grid */
+.spoke-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+  margin-top: 1.15rem;
+}
+
+.spoke-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 650;
+  color: var(--text-faint);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  background: var(--bg-soft);
+}
+
+.spoke-dot i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.spoke-dot.ok {
+  color: var(--text-muted);
+}
+
+.spoke-dot.down {
+  opacity: 0.45;
+}
+
+.foot a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.foot a:hover {
+  text-decoration: underline;
+}
+
 .hero h2 {
   font-size: 1.75rem;
   font-weight: 700;

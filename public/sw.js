@@ -1,6 +1,12 @@
 /* HubLife shell SW — network-first for navigations, cache-first for static assets */
-const CACHE = "hublife-v1";
-const PRECACHE = ["/", "/index.html", "/favicon.svg", "/manifest.webmanifest"];
+const CACHE = "hublife-v2";
+const PRECACHE = [
+  "/",
+  "/index.html",
+  "/favicon.svg",
+  "/manifest.webmanifest",
+  "/og.jpg",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

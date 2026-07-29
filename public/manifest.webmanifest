@@ -1,5 +1,5 @@
 {
-  "id": "/?v=1",
+  "id": "/",
   "name": "HubLife · North Network",
   "short_name": "HubLife",
   "description": "Home screen for North Network — jump to Wacké, Zyeuté, Grok, FloGuru, Hell Yeah, ChatSnap.",
@@ -28,6 +28,29 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Morning briefing",
+      "short_name": "Brief me",
+      "description": "Open Grok with intent=brief",
+      "url": "/?shortcut=brief",
+      "icons": [{ "src": "/pwa-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "What's live",
+      "short_name": "Live",
+      "description": "Open Wacké",
+      "url": "/?shortcut=live",
+      "icons": [{ "src": "/pwa-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Snap crew",
+      "short_name": "Snap",
+      "description": "Open ChatSnap",
+      "url": "/?shortcut=snap",
+      "icons": [{ "src": "/pwa-192.png", "sizes": "192x192" }]
     }
   ]
 }
